@@ -3,22 +3,7 @@ This project is an reimplementation of https://github.com/UzmaHasan/KCRL for CS5
 To test, please run main.py. Update output_dir in main.py if needed.
 
 **Repository structure**
-.
-└── CS598DL4H/
-    ├── datasets/
-    │   ├── Asia
-    │   ├── LUCAS
-    │   ├── Oxygen-therapy
-    │   └── SACHS
-    ├── model/
-    │   └── actor_critic.py #[reimplemented]
-    ├── reward/
-    │   └── get_reward.py   #[taken from original code]
-    ├── utils/
-    │   ├── bic.py          #[taken from original code]
-    │   ├── eval.py         #[taken from original code]
-    │   └── load.py         #[reimplemented]
-    └── main.py             #[reimplemented]
+[Insert picture]
     
 **Dataset decription**
 Four datasets are provided: LUCAS, Asia, SACHS, Oxygen-therapy
