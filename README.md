@@ -1,5 +1,26 @@
 # CS598DL4H
-1. Dataset decription
+This project is an reimplementation of https://github.com/UzmaHasan/KCRL for CS598 Deep Learning for Healthcare 
+To test, please run main.py. Update output_dir in main.py if needed.
+
+**Repository structure**
+.
+└── CS598DL4H/
+    ├── datasets/
+    │   ├── Asia
+    │   ├── LUCAS
+    │   ├── Oxygen-therapy
+    │   └── SACHS
+    ├── model/
+    │   └── actor_critic.py #[reimplemented]
+    ├── reward/
+    │   └── get_reward.py   #[taken from original code]
+    ├── utils/
+    │   ├── bic.py          #[taken from original code]
+    │   ├── eval.py         #[taken from original code]
+    │   └── load.py         #[reimplemented]
+    └── main.py             #[reimplemented]
+    
+**Dataset decription**
 Four datasets are provided: LUCAS, Asia, SACHS, Oxygen-therapy
 Each folder has (1) a csv file from the original paper github repository, (2) a data.npy file converted from the csv file, and (3) a true_graph.npy file created from the data sources listed below:
 LUCAS: http://www.causality.inf.ethz.ch/data/LUCAS.html (LUCAS0)
