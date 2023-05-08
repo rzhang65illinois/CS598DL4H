@@ -5,8 +5,9 @@ import torch.nn as nn
 from data_loader import DataGenerator_read_data
 from model import Actor, Critic
 from reward import get_Reward
-from utils.load import load_data, train_batch, gen_instance_graph, prior_knowledge_graph
+from utils.load import load_data, train_batch, prior_knowledge_graph
 from utils.eval import graph_prunned_by_coef, count_accuracy
+from utils.bic import BIC_lambdas
 
 # Input parameters
 #max_length = 8     # Total number of nodes in the graph
