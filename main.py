@@ -1,8 +1,8 @@
 import numpy as np
 import torch
 import torch.nn as nn
+import matplotlib.pyplot as plt
 
-from data_loader import DataGenerator_read_data
 from model import Actor, Critic
 from reward import get_Reward
 from utils.load import load_data, train_batch, prior_knowledge_graph
@@ -18,19 +18,18 @@ input_dimension = 64
 lambda_iter_num = 1000
 batch_size = 32
 
-output_dir = '.../CS598DL4H/datasets/SACHS' # please update the directory!
+output_dir = 'datasets/LUCAS' # please update the directory!
 save_model_path = '{}/model'.format(output_dir)
 plot_dir = '{}/plot'.format(output_dir)
 graph_dir = '{}/graph'.format(output_dir)
 
 file_path = '{}/data.npy'.format(output_dir)
 #solution_path = '{}/DAG.npy'.format(config.data_path)
-solution_path = None
+solution_path = '{}/true_graph.npy'.format(output_dir)
 inputdata, true_graph = load_data(file_path, solution_path, True)
 
-#sl, su, strue = BIC_lambdas(inputdata, None, None, true_graph.T, reg_type)
-import matplotlib.pyplot as plt
 sl, su, strue = BIC_lambdas(inputdata, None, None, None, reg_type)
+max_length = true_graph.shape[0]
 lambda1 = 0
 lambda1_upper = 5
 lambda1_update_add = 1
@@ -58,7 +57,7 @@ lr1_start = 0.001
 lr1_decay_rate = 0.96
 lr1_decay_step = 5000
 a = prior_knowledge_graph(true_graph, 4, 26)
-max_length = 11
+
 #3, 36
 #4, 121*0.25 - 4 = 26
 '''
