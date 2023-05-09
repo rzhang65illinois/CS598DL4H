@@ -9,25 +9,22 @@ from utils.load import load_data, train_batch, prior_knowledge_graph
 from utils.eval import graph_prunned_by_coef, count_accuracy
 from utils.bic import BIC_lambdas
 
-# Input parameters
-#max_length = 8     # Total number of nodes in the graph
-#data_size = 1000   # Sample size
-reg_type = 'LR'
-nb_epoch = 10000                 
-input_dimension = 64
-lambda_iter_num = 1000
-batch_size = 32
-
 output_dir = 'datasets/LUCAS' # please update the directory!
 save_model_path = '{}/model'.format(output_dir)
 plot_dir = '{}/plot'.format(output_dir)
 graph_dir = '{}/graph'.format(output_dir)
 
 file_path = '{}/data.npy'.format(output_dir)
-#solution_path = '{}/DAG.npy'.format(config.data_path)
 solution_path = '{}/true_graph.npy'.format(output_dir)
 inputdata, true_graph = load_data(file_path, solution_path, True)
 
+# Input parameters
+num_prior_edge = 3
+reg_type = 'LR'
+nb_epoch = 10000                 
+input_dimension = 64
+lambda_iter_num = 1000
+batch_size = 32
 sl, su, strue = BIC_lambdas(inputdata, None, None, None, reg_type)
 max_length = true_graph.shape[0]
 lambda1 = 0
@@ -39,16 +36,9 @@ lambda2_update_mul = 10
 lambda3 = 0
 lambda3_upper = 1
 lambda3_update_add = 0.1#
-
 max_reward_score_cyc = (lambda1_upper+1, 0, 0)
 rewards_avg_baseline, rewards_batches, reward_max_per_batch = [], [], []
 lambda1s, lambda2s, lambda3s = [], [], []
-graphss = []
-probsss = []
-max_rewards = []
-max_reward = float('-inf')
-image_count = 0
-image_count2= 0
 accuracy_res, accuracy_res_pruned = [], []
 max_reward_score_cyc = (lambda1_upper+1, 0, 0)
 alpha = 0.99
@@ -56,69 +46,8 @@ avg_baseline = -1.0
 lr1_start = 0.001
 lr1_decay_rate = 0.96
 lr1_decay_step = 5000
-a = prior_knowledge_graph(true_graph, 4, 26)
+a = prior_knowledge_graph(true_graph, num_prior_edge, 0)
 
-#3, 36
-#4, 121*0.25 - 4 = 26
-'''
-a = np.ones((max_length, max_length))*2
-a= np.int32(a)
-a[0][2]=1
-a[10][9]=1
-a[8][11]=1
-a[5][0]=0
-a[2][1]=0
-a[6][2]=0
-a[9][3]=0
-a[1][4]=0
-a[3][5]=0
-a[1][6]=0
-a[8][7]=0
-a[4][8]=0
-a[11][9]=0
-a[4][10]=0
-a[9][11]=0
-'''
-'''
-#Smoking
-true_graph[1][0]=1
-true_graph[11][0]=1
-#Anxiety
-true_graph[0][2]=1
-#Peer presure
-true_graph[0][3]=1
-#Genetics
-true_graph[5][4]=1
-true_graph[11][4]=1
-#Attention disorder
-true_graph[7][5]=1
-#Fatigue
-true_graph[7][8]=1
-#Allergy
-true_graph[10][9]=1
-#Coughing
-true_graph[8][10]=1
-#Lung cancer
-true_graph[8][11]=1
-true_graph[10][11]=1
-'''
-'''
-a = np.ones((8, 8))*2
-a= np.int32(a)
-a[6][2]=1
-a[4][3]=1
-a[1][5]=0
-a[6][7]=0
-true_graph = np.zeros((8, 8))
-true_graph[1][0]=1
-true_graph[3][2]=1
-true_graph[6][2]=1
-true_graph[4][3]=1
-true_graph[7][6]=1
-true_graph[7][4]=1
-true_graph[5][4]=1
-true_graph[4][1]=1
-'''
 rewards_batches, max_rewards = [], []
 actor = Actor(max_length)
 critic = Critic(max_length)  
