@@ -14,16 +14,16 @@ Each folder has (1) a csv file from the original paper github repository, (2) a 
 
 LUCAS: http://www.causality.inf.ethz.ch/data/LUCAS.html (LUCAS0)
 
-<img width="347" alt="files" src="https://user-images.githubusercontent.com/109108701/236989748-696da93a-e438-4ac7-abcd-2feb91a5fd40.png">
+<img width="350" alt="files" src="https://user-images.githubusercontent.com/109108701/236989748-696da93a-e438-4ac7-abcd-2feb91a5fd40.png">
 
 Asia: https://www.bnlearn.com/bnrepository/discrete-small.html#asia
 
-<img width="347" alt="files" src="https://user-images.githubusercontent.com/109108701/236990022-2cb31d4f-744d-4ed2-98af-f429dcae9e0e.png">
+<img width="350" alt="files" src="https://user-images.githubusercontent.com/109108701/236990022-2cb31d4f-744d-4ed2-98af-f429dcae9e0e.png">
 
 SACHS: https://www.bnlearn.com/bnrepository/discrete-small.html#sachs
 
-<img width="347" alt="files" src="https://user-images.githubusercontent.com/109108701/236724466-7e8732a2-5bd6-4863-94e6-aee4046efe8b.png">
+<img width="350" alt="files" src="https://user-images.githubusercontent.com/109108701/236724466-7e8732a2-5bd6-4863-94e6-aee4046efe8b.png">
 
 Oxygen-therapy: https://arxiv.org/pdf/2010.14774.pdf
 
-<img width="347" alt="files" src="https://user-images.githubusercontent.com/109108701/236724863-35b8e6d9-1f29-40eb-861d-20f47d1db09a.png">
+<img width="700" alt="files" src="https://user-images.githubusercontent.com/109108701/236724863-35b8e6d9-1f29-40eb-861d-20f47d1db09a.png">
