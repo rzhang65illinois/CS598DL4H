@@ -3,7 +3,7 @@ This project is an reimplementation of https://github.com/UzmaHasan/KCRL for CS5
 To test, please run main.py. Update output_dir in main.py if needed.
 
 **Repository structure**
-[Insert picture]
+<img width="347" alt="files" src="https://user-images.githubusercontent.com/109108701/236966259-0ef575a3-5c82-43cf-a331-f38d0771ebd5.png">
     
 **Dataset decription**
 Four datasets are provided: LUCAS, Asia, SACHS, Oxygen-therapy
