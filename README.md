@@ -22,7 +22,8 @@ Asia: https://www.bnlearn.com/bnrepository/discrete-small.html#asia
 
 SACHS: https://www.bnlearn.com/bnrepository/discrete-small.html#sachs
 
-![image](https://user-images.githubusercontent.com/109108701/236724466-7e8732a2-5bd6-4863-94e6-aee4046efe8b.png)
+<img width="347" alt="files" src="https://user-images.githubusercontent.com/109108701/236724466-7e8732a2-5bd6-4863-94e6-aee4046efe8b.png">
 
 Oxygen-therapy: https://arxiv.org/pdf/2010.14774.pdf
-![image](https://user-images.githubusercontent.com/109108701/236724863-35b8e6d9-1f29-40eb-861d-20f47d1db09a.png)
+
+<img width="347" alt="files" src="https://user-images.githubusercontent.com/109108701/236724863-35b8e6d9-1f29-40eb-861d-20f47d1db09a.png">
