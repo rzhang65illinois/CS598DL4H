@@ -18,7 +18,7 @@ file_path = '{}/data.npy'.format(output_dir)
 solution_path = '{}/true_graph.npy'.format(output_dir)
 inputdata, true_graph = load_data(file_path, solution_path, True)
 
-# Input parameters
+# Parameters
 num_prior_edge = 3
 reg_type = 'LR'
 nb_epoch = 10000                 
@@ -35,11 +35,7 @@ lambda2_upper = 0.01
 lambda2_update_mul = 10
 lambda3 = 0
 lambda3_upper = 1
-lambda3_update_add = 0.1#
-max_reward_score_cyc = (lambda1_upper+1, 0, 0)
-rewards_avg_baseline, rewards_batches, reward_max_per_batch = [], [], []
-lambda1s, lambda2s, lambda3s = [], [], []
-accuracy_res, accuracy_res_pruned = [], []
+lambda3_update_add = 0.1
 max_reward_score_cyc = (lambda1_upper+1, 0, 0)
 alpha = 0.99
 avg_baseline = -1.0
@@ -47,8 +43,9 @@ lr1_start = 0.001
 lr1_decay_rate = 0.96
 lr1_decay_step = 5000
 a = prior_knowledge_graph(true_graph, num_prior_edge, 0)
+rewards_batches = []
 
-rewards_batches, max_rewards = [], []
+# Learning
 actor = Actor(max_length)
 critic = Critic(max_length)  
 opt_actor = torch.optim.Adam(actor.parameters(), lr=lr1_start, betas=(0.9, 0.99), eps=1e-08)
@@ -62,19 +59,15 @@ for i in (range(1, nb_epoch + 1)):
     opt_critic.zero_grad()
     input_batch = train_batch(inputdata, batch_size, input_dimension)
     graphs, scores, entropy, logprob = actor(torch.tensor(np.array(input_batch)).float())
-    #print(graphs.shape, scores.shape, entropy[0].shape, logprob[0].shape)
-    #print(scores.shape)
     action = torch.reshape(scores.detach(), (batch_size, max_length**2))
     state_value = critic(action)
     callreward = get_Reward(batch_size, max_length, input_dimension, inputdata, sl, su, lambda1_upper, 'BIC', reg_type, 0.0)
-    reward_tuple = callreward.cal_rewards(graphs, a, lambda1, lambda2, lambda3)
-    reward = reward_tuple[:,0]
+    reward = callreward.cal_rewards(graphs, a, lambda1, lambda2, lambda3)[:,0]
     rewards_batches.append(np.mean(reward))
     avg_baseline = alpha*avg_baseline + (1.0-alpha)*np.mean(reward)
     discount_reward = torch.tensor(reward) - avg_baseline
-    advantage = torch.tensor(reward) - torch.squeeze(state_value)
-    critic_loss = torch.mean(advantage.pow(2))
-    #actor_loss = torch.sum(-torch.mean(torch.stack(logprob),(0,2)) * advantage.detach())
+    advantage = torch.tensor(discount_reward.detach()) - torch.squeeze(state_value)
+    critic_loss = torch.mean(advantage**2)
     actor_loss = torch.mean(discount_reward.detach()*torch.mean(torch.stack(logprob),(0,2)))
     actor_loss.backward()
     critic_loss.backward()
@@ -93,12 +86,5 @@ for i in (range(1, nb_epoch + 1)):
         graph_batch = np.array([list(map(int, ((len(graph_int) - len(np.base_repr(curr_int))) * '0' + np.base_repr(curr_int)))) for curr_int in graph_int], dtype=int)
         graph_batch_pruned = np.array(graph_prunned_by_coef(graph_batch, inputdata))
         # estimate accuracy
-        #print(graph_batch.T, graph_batch_pruned.T)
-        acc_est = count_accuracy(true_graph, graph_batch)
-        acc_est2 = count_accuracy(true_graph, graph_batch_pruned)
-        print(acc_est, acc_est2)
-        plt.figure(1)
-        plt.plot(rewards_batches, label='reward per batch')
-        plt.legend()
-        plt.show()
-        plt.close()
+        acc_est = count_accuracy(true_graph, graph_batch_pruned.T)
+        print(acc_est)
